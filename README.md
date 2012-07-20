@@ -11,4 +11,11 @@ In your project settings:
 
     PLOP_DIR = os.path.join(PROJECT_ROOT, 'plop') # will be created, defaults to /tmp/plop
 
+## Production Usage
+
+PLOP itself is [used in production by Dropbox][dropbox-plop] with 2% CPU
+overhead (or so). However, this middleware will write logs to the disk, which
+may not be acceptable for your use case (especially on Heroku et. al.)
+
 [plop]: https://github.com/bdarnell/plop "plop on GitHub"
+[dropbox-plop]: http://tech.dropbox.com/?p=272 "Dropbox Plop: Low-overhead profiling for Python"
