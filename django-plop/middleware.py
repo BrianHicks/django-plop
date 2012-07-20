@@ -1,12 +1,12 @@
 'plop middleware'
 from django.conf import settings
-import plop
+from plop.collector import Collector
 import os
 
 try:
     PLOP_DIR = settings.PLOP_DIR
 except AttributeError:
-    os.environ.get('PLOP_DIR', '/tmp/plop')
+    PLOP_DIR = os.environ.get('PLOP_DIR', '/tmp/plop')
 
 
 class PlopMiddleware(object):
@@ -22,15 +22,18 @@ class PlopMiddleware(object):
 
     def process_view(self, request, view_func, _, __):
         'process a single view, adding the collector'
-        request.collector = plop.collector.Collector()
+        request.collector = Collector()
         request.collector.start()
         request.plop_filename = self.get_filename(view_func)
 
     def process_response(self, request, response):
         'after the view executes, stop profiling'
-        request.collector.stop()
-        with open(request.plop_filename, 'a') as plop_file:
-            plop_file.write(repr(dict(plop.stack_counts)))
+        if hasattr(request, 'collector'): # 404s
+            request.collector.stop()
+            with open(request.plop_filename, 'a') as plop_file:
+                plop_file.write(repr(dict(plop.stack_counts)))
+
+        return response
 
     def process_exception(self, request, exception):
         'process an exception - just stop profiling'

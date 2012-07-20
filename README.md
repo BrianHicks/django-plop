@@ -3,11 +3,15 @@
 Django-plop is a middleware for profiling your views with [PLOP][plop], the
 Python Low Overhead Profiler.
 
+Warning: This doesn't currently work - Plop uses signaling in a way that is
+incompatible with Django. But I found that information out after I had
+implemented that, so I'm letting this sit.
+
 ## Usage
 
 In your project settings:
 
-    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + ['django-plop.middleware.PlopMiddleware']
+    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + ('django-plop.middleware.PlopMiddleware',)
 
     PLOP_DIR = os.path.join(PROJECT_ROOT, 'plop') # will be created, defaults to /tmp/plop
 
