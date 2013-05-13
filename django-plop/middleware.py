@@ -31,7 +31,7 @@ class PlopMiddleware(object):
         if hasattr(request, 'collector'): # 404s
             request.collector.stop()
             with open(request.plop_filename, 'a') as plop_file:
-                plop_file.write(repr(dict(plop.stack_counts)))
+                plop_file.write(repr(dict(request.collector.stack_counts)))
 
         return response
 
