@@ -25,5 +25,5 @@ setup(
     author="Brian Hicks",
     url="https://github.com/brianhicks/django-plop",
     description="Middleware for Django to support plop profiling",
-    long_description=open("README.md").read(),
+    long_description=open("README.rst").read(),
 )
