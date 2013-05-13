@@ -2,10 +2,10 @@
 from setuptools import setup
 
 setup(
-    name="django-plop",
+    name="django_plop",
     version="0.0.1",
 
-    packages=["django-plop"],
+    packages=["django_plop"],
     install_requires = [
         'Django>=1.0',
         'plop==0.1.1',
